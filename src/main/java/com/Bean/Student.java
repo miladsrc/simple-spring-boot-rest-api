@@ -1,22 +1,18 @@
 package com.Bean;
 
 
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import org.hibernate.annotations.Entity;
-import org.hibernate.annotations.Table;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
-@Entity
 @Getter
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @AllArgsConstructor
+@Builder
 @NoArgsConstructor
+@Entity
 @Table(name = "students")
 public class Student {
     @Id
@@ -26,6 +22,5 @@ public class Student {
     String firstName;
     String lastName;
     String email;
-
 
 }
