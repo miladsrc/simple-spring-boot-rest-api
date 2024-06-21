@@ -90,12 +90,23 @@ public class StudentController {
 
 
     //Spring boot rest api that handel put request - updating existing resources
-
     @PutMapping("student/{id}/updates")
     public Student updateStudent(@RequestBody Student student,@PathVariable("id") Long studentId){
         System.out.println(student.getFirstName());
         System.out.println(student.getLastName());
         return student;
     }
+
+
+
+
+    //Spring boot rest api that handel delete requests = delete existing resource
+    @DeleteMapping("student/{id}/delete")
+    @ResponseStatus(HttpStatus.OK)
+    public String deleteStudent(@PathVariable("id") Long studentId){
+        System.out.println(studentId+" deleted");
+        return "deleteStudent";
+    }
+
 
 }
