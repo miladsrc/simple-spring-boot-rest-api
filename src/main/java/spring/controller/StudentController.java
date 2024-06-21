@@ -16,24 +16,33 @@ public class StudentController {
 
     //http://localhost:8080/student-get
     @GetMapping("/student-get")
-    public Student getStudent() {
+//    @ResponseStatus(HttpServletResponse.Ok)
+    public ResponseEntity<Student> getStudent() {
         Student student = Student.builder()
                 .firstName("jackson")
                 .lastName("jackson")
                 .email("jackson@gmail.com")
                 .build();
-        return student;
+// 1->       return new ResponseEntity<>(student, HttpStatus.OK);
+// 2->      return ResponseEntity.ok(Student);
+        return ResponseEntity.ok()
+                .header("Content-Type", "application/json")
+                .body(student);
     }
 
     //http://localhost:8080/student
     @GetMapping("/student")
-    public List<Student> getStudentList() {
+    public ResponseEntity<List<Student>> getStudentList() {
         List<Student> students = new ArrayList<>();
         students.add(new Student(2L, "jack", "jackson", "jackson@gmail.com"));
         students.add(new Student(3L, "ram", "jack", "jackson@gmail.com"));
         students.add(new Student(3L, "ram", "jack", "jackson@gmail.com"));
         students.add(new Student(3L, "ram", "jack", "jackson@gmail.com"));
-        return students;
+
+//        return ResponseEntity.ok(students);
+        return ResponseEntity.ok()
+                .header("Content-Type", "application/json")
+                .body(students);
     }
 
     //Spring boot rest api with path variable
@@ -59,6 +68,7 @@ public class StudentController {
         return new Student(id, "jack", "jackson", "jack@gmail.com ");
     }
 
+
     /*
        spring boot rest api with request parameter two
        **we use query to make it unique
@@ -80,9 +90,9 @@ public class StudentController {
     //@PostMapping and @RequestBody
     @PostMapping("student/create")
     //must return 200 status that means created
-    public Student createStudent(@RequestBody Student student){
+    public ResponseEntity<Student> createStudent(@RequestBody Student student){
         System.out.println(student.getId()+":"+student.getFirstName()+" "+student.getLastName()+" "+student.getEmail());
-        return student;
+        return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
 
 
@@ -91,10 +101,10 @@ public class StudentController {
 
     //Spring boot rest api that handel put request - updating existing resources
     @PutMapping("student/{id}/updates")
-    public Student updateStudent(@RequestBody Student student,@PathVariable("id") Long studentId){
+    public ResponseEntity<Student> updateStudent(@RequestBody Student student,@PathVariable("id") Long studentId){
         System.out.println(student.getFirstName());
         System.out.println(student.getLastName());
-        return student;
+        return new ResponseEntity<>.ok(student);
     }
 
 
@@ -103,9 +113,9 @@ public class StudentController {
     //Spring boot rest api that handel delete requests = delete existing resource
     @DeleteMapping("student/{id}/delete")
     @ResponseStatus(HttpStatus.OK)
-    public String deleteStudent(@PathVariable("id") Long studentId){
+    public ResponseEntity<String> deleteStudent(@PathVariable("id") Long studentId){
         System.out.println(studentId+" deleted");
-        return "deleteStudent";
+        return ResponseEntity.ok("student deleted successfully!");
     }
 
 
