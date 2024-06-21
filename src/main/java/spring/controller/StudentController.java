@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "student")
 public class StudentController {
 
 
@@ -31,7 +32,7 @@ public class StudentController {
     }
 
     //http://localhost:8080/student
-    @GetMapping("/student")
+    @GetMapping
     public ResponseEntity<List<Student>> getStudentList() {
         List<Student> students = new ArrayList<>();
         students.add(new Student(2L, "jack", "jackson", "jackson@gmail.com"));
@@ -51,7 +52,7 @@ public class StudentController {
     /*
     * to binde this url with id we need path variable annotation
     * */
-    @GetMapping("/students/{id}")
+    @GetMapping("students/{id}")
     public Student studentPathVariable(@PathVariable("id") Long id){
         return new Student(id, "jack", "jackson", "jackson@gmail.com");
     }
@@ -63,7 +64,7 @@ public class StudentController {
     **we use query to make it unique
     http://localhost:8080/students/query?id=1
      */
-    @GetMapping("/students/query")
+    @GetMapping("students/query")
     public Student studentRequestParameter(@RequestParam Long id){
         return new Student(id, "jack", "jackson", "jack@gmail.com ");
     }
@@ -74,7 +75,7 @@ public class StudentController {
        **we use query to make it unique
        http://localhost:8080/students/query?id=1&firstName=milad&lastName=barani&email=milad@gmail.com
         */
-    @GetMapping("/students/queryTwo")
+    @GetMapping("students/queryTwo")
     public Student studentRequestParameterTwo(@RequestParam Long id ,
                                               @RequestParam String firstName ,
                                               @RequestParam String lastName,
@@ -88,7 +89,7 @@ public class StudentController {
 
     //Spring boot rest api that handel post request - create new resource
     //@PostMapping and @RequestBody
-    @PostMapping("student/create")
+    @PostMapping("create")
     //must return 200 status that means created
     public ResponseEntity<Student> createStudent(@RequestBody Student student){
         System.out.println(student.getId()+":"+student.getFirstName()+" "+student.getLastName()+" "+student.getEmail());
@@ -100,11 +101,11 @@ public class StudentController {
 
 
     //Spring boot rest api that handel put request - updating existing resources
-    @PutMapping("student/{id}/updates")
+    @PutMapping("{id}/updates")
     public ResponseEntity<Student> updateStudent(@RequestBody Student student,@PathVariable("id") Long studentId){
         System.out.println(student.getFirstName());
         System.out.println(student.getLastName());
-        return new ResponseEntity<>.ok(student);
+        return ResponseEntity.ok(student);
     }
 
 
