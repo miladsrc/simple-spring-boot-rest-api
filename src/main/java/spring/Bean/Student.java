@@ -1,7 +1,6 @@
-package com.Bean;
+package spring.Bean;
 
 
-import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
@@ -12,15 +11,9 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @Builder
 @NoArgsConstructor
-//@Entity
-@Table(name = "students")
 public class Student {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    Long id;
     String firstName;
     String lastName;
     String email;
-
 }

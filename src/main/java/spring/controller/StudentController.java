@@ -1,11 +1,11 @@
-package com.controller;
+package spring.controller;
 
 
-import com.Bean.Student;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import spring.Bean.Student;
+import org.springframework.web.bind.annotation.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +70,32 @@ public class StudentController {
                                               @RequestParam String lastName,
                                               @RequestParam String email){
         return new Student(id, firstName, lastName, email);
+    }
+
+
+
+
+
+    //Spring boot rest api that handel post request - create new resource
+    //@PostMapping and @RequestBody
+    @PostMapping("student/create")
+    //must return 200 status that means created
+    public Student createStudent(@RequestBody Student student){
+        System.out.println(student.getId()+":"+student.getFirstName()+" "+student.getLastName()+" "+student.getEmail());
+        return student;
+    }
+
+
+
+
+
+    //Spring boot rest api that handel put request - updating existing resources
+
+    @PutMapping("student/{id}/updates")
+    public Student updateStudent(@RequestBody Student student,@PathVariable("id") Long studentId){
+        System.out.println(student.getFirstName());
+        System.out.println(student.getLastName());
+        return student;
     }
 
 }
